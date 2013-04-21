@@ -1,54 +1,85 @@
+function Monster(attackOrder) {
+    "use strict";
+    this._attackOrder = attackOrder;
+	this._attacks = [];
+    this._health = 5;
+    this._attackCounter = 0;
+    this._currentAttack;
+    
 
-Monster.prototype.name = null;
-Monster.prototype.attack = function () { ... };
-
-
-function Godzilla(name) {
-    // Ruft die Monster-Funktion auf this auf
-    Monster.apply(this, arguments);
+    
+    this.growl=function(){
+        console.log(this._sound);
+    }
+    
+    this.attack=function(victim){
+        this.growl();
+        var ap=0;
+        if (this._attackOrder.length>0){
+            this._currentAttack=this._attacks[this._attackOrder[0]];
+            if (typeof this._currentAttack != 'undefined'){
+                ap=this._currentAttack[0];
+                this._health+=this._currentAttack[1];
+				console.log('health',this._health)
+            }
+            this._attackOrder.shift();
+        }
+        
+        victim.defend(ap)        
+    }
+    
+    this.defend=function(attackPoints){
+		console.log(this._health-attackPoints)
+        if (this._health-=attackPoints<=0)
+            process.exit(0);
+    }
+        
+    
 }
-// Erzeugt ein neues Objekt das als Prototyp Monster.prototype hat
-Godzilla.prototype = Object.create(Monster.prototype);
+
+Monster.prototype._sound=null;
+Monster.prototype._attackOrder=null;
+Monster.prototype.attacks=null;
+
+Monster.prototype.getHealth=function(){
+    return this._health;
+}
+
+
+
+function Godzilla(attackOrder) {
+    Monster.apply(this, arguments);
+	
+	this._sound='rooooooaaaaaaarrr';
+    this._attacks={
+        "Punch":[4,2], 
+        "Tackle":[5,4], 
+        "BattleCry":[6,5],
+        "RoundHouseKick":[5,1]
+    }
+}
+
+Godzilla.prototype = Object.create(Monster);
 Godzilla.prototype.attack = function () {
-    ...
-    // Ruft die attack-Funktion des Monsters auf diesem Objekt auf
     Monster.prototype.attack.apply(this, arguments);
 };
 
 
-Monster= function (attackOrder){
-    this._attackOrder=attackOrder;
-    this._health=5;
-    this._attackCounter=0;
-    
-    this.getHealth=function(){
-        return _health;
+
+function KingKong(attackOrder) {
+    Monster.apply(this, arguments);
+	
+	this._sound='aaaaaaaaaaaarrrrrrrrrgghhhh "boom boom boom boom"';
+	   this._attacks={
+        "Punch":[4,2], 
+        "Tackle":[5,4], 
+        "BattleCry":[6,5],
+        "RoundHouseKick":[5,1]
     }
-    
-    this.growl=function(){
-        console.log(_sound);
-    }
-    
-    this.attack=function(victim){
-        this.growl()
-        victim.defend(attackOrder[_attackCounter])
-        _attackCounter++;
-        
-    }
-    
-    this.defend=function(attackPoints){
-        if (_health-=attackPoints<=0)
-            process.exit(0);
-        else{
-            _health-=attackPoints;
-            //attacke auswählen?
-        }
-            
-            
-    }
-        
-    
+	
 }
 
-Monster.prototype.sound=null;
-Monster.prototype.attackOrder=null
+KingKong.prototype = Object.create(Monster);
+KingKong.prototype.attack = function () {
+    Monster.prototype.attack.apply(this, arguments);
+};
