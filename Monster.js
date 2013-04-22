@@ -1,88 +1,93 @@
 function Monster(attackOrder) {
     "use strict";
     this._attackOrder = attackOrder;
-	this._attacks = [];
-    this._health = 5;
-    this._attackCounter = 0;
-    this._currentAttack;
-    
-
-    
-    this.growl=function(){
-        console.log(this._sound);
-    }
-    
-    this.attack=function(victim){
-        this.growl();
-        var ap=0;
-        if (this._attackOrder.length>0){
-            this._currentAttack=this._attacks[this._attackOrder[0]];
-            if (typeof this._currentAttack != 'undefined'){
-                ap=this._currentAttack[0];
-                this._health+=this._currentAttack[1];
-				console.log('health',this._health)
-            }
-            this._attackOrder.shift();
-        }
-        
-        victim.defend(ap)        
-    }
-    
-    this.defend=function(attackPoints){
-		console.log(this._health-attackPoints)
-        if (this._health-=attackPoints<=0)
-            process.exit(0);
-    }
-        
-    
 }
 
 Monster.prototype._sound=null;
 Monster.prototype._attackOrder=null;
-Monster.prototype.attacks=null;
+Monster.prototype._attacks=null;
+Monster.prototype._health=5;
+Monster.prototype.name=null;
+
 
 Monster.prototype.getHealth=function(){
     return this._health;
 }
 
+Monster.prototype.growl=function(){
+    console.log(this._sound);
+}
 
-
+Monster.prototype.attack=function(victim){
+    this.growl();
+    var ap=0;
+    if (this._attackOrder.length>0){
+        var currentAttack=this._attacks[this._attackOrder[0]];
+        if (typeof currentAttack != 'undefined')
+            ap=currentAttack[0];
+        this._attackOrder.shift();
+    }
+    console.log(this.name,'attacks with', ap)
+    victim.defend(ap)        
+}
+Monster.prototype.defend=function(attackPoints){
+    if (this._attackOrder.length>0){
+        var currentAttack=this._attacks[this._attackOrder[0]];
+            if (typeof currentAttack != 'undefined'){
+                console.log(this.name,'defends with',currentAttack[1])
+                attackPoints-=currentAttack[1]
+                if (attackPoints<=0){
+                    console.log(this.name,'has averted the attack,',this._health,'left')
+                    return
+                }
+            }
+        this._attackOrder.shift();
+    }
+        
+    if (this._health-attackPoints<=0){
+        console.log(this.name, 'is dead');
+        process.exit(0);
+    }
+    
+    this._health-=attackPoints;
+    console.log(this.name,'has',this._health,'live points left')
+    
+}
+    
+    
 function Godzilla(attackOrder) {
     Monster.apply(this, arguments);
 	
+    this.name='god';
 	this._sound='rooooooaaaaaaarrr';
     this._attacks={
-        "Punch":[4,2], 
+        "Punch":[5,4], 
         "Tackle":[5,4], 
-        "BattleCry":[6,5],
+        "BattleCry":[2,5],
         "RoundHouseKick":[5,1]
     }
 }
 
-Godzilla.prototype = Object.create(Monster);
-Godzilla.prototype.attack = function () {
-    Monster.prototype.attack.apply(this, arguments);
-};
+Godzilla.prototype = Object.create(Monster.prototype);
+
 
 
 
 function KingKong(attackOrder) {
     Monster.apply(this, arguments);
 	
+    this.name='king'
 	this._sound='aaaaaaaaaaaarrrrrrrrrgghhhh "boom boom boom boom"';
-	   this._attacks={
-        "Punch":[4,2], 
-        "Tackle":[5,4], 
-        "BattleCry":[6,5],
-        "RoundHouseKick":[5,1]
+    this._attacks={
+        'Stamp':[6,3], 
+        'Punch':[9,1], 
+        'Tackle':[4,2],
+        'DrumOnChest':[1,6]
     }
 	
 }
 
-KingKong.prototype = Object.create(Monster);
-KingKong.prototype.attack = function () {
-    Monster.prototype.attack.apply(this, arguments);
-};
+KingKong.prototype = Object.create(Monster.prototype);
 
 
 
@@ -126,6 +131,7 @@ Referee.prototype._isCheater = function(monster) {
             defenseSum += currentAttack.defense;
         }
     }
+    
 
     if (monster.getHealth() !== Monster.prototype.getHealth()) {
         throw new Error("Found '" + monster.getHealth() + "'. Health has to be exactly " + Monster.prototype.getHealth());

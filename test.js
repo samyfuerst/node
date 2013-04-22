@@ -2,14 +2,12 @@ function Monster(attackOrder) {
     "use strict";
     this._attackOrder = attackOrder;
 	this._attacks = [];
-    this._health = 5;
-    this._attackCounter = 0;
-    this._currentAttack;
+    this._health;
+    this._currentAttack=null;
+        
     
-
-    
-    this.growl=function(){
-        console.log(this._sound);
+    this.getHealth=function(){
+        return this._health;
     }
     
     this.attack=function(victim){
@@ -39,11 +37,17 @@ function Monster(attackOrder) {
 
 Monster.prototype._sound=null;
 Monster.prototype._attackOrder=null;
-Monster.prototype.attacks=null;
+Monster.prototype._attacks=null;
 
 Monster.prototype.getHealth=function(){
     return this._health;
 }
+
+Monster.prototype.growl=function(){
+    console.log(this._sound);
+}
+
+
 
 
 
@@ -60,9 +64,7 @@ function Godzilla(attackOrder) {
 }
 
 Godzilla.prototype = Object.create(Monster);
-Godzilla.prototype.attack = function () {
-    Monster.prototype.attack.apply(this, arguments);
-};
+
 
 
 
@@ -70,7 +72,7 @@ function KingKong(attackOrder) {
     Monster.apply(this, arguments);
 	
 	this._sound='aaaaaaaaaaaarrrrrrrrrgghhhh "boom boom boom boom"';
-	   this._attacks={
+    this._attacks={
         "Punch":[4,2], 
         "Tackle":[5,4], 
         "BattleCry":[6,5],
@@ -83,3 +85,11 @@ KingKong.prototype = Object.create(Monster);
 KingKong.prototype.attack = function () {
     Monster.prototype.attack.apply(this, arguments);
 };
+
+
+m=new Godzilla(['Punch'])
+
+console.log(m.prototype.growl)
+console.log(m.growl)
+console.log(m.x)
+
