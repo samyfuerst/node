@@ -1,6 +1,7 @@
 function Monster(attackOrder) {
     "use strict";
     this._attackOrder = attackOrder;
+    this._attacks=calculateAttacks(20,12,attackOrder)
 }
 
 Monster.prototype._sound=null;
@@ -60,12 +61,7 @@ function Godzilla(attackOrder) {
 	
     this.name='god';
 	this._sound='rooooooaaaaaaarrr';
-    this._attacks={
-        "Punch":[5,4], 
-        "Tackle":[5,4], 
-        "BattleCry":[2,5],
-        "RoundHouseKick":[5,1]
-    }
+ 
 }
 
 Godzilla.prototype = Object.create(Monster.prototype);
@@ -78,12 +74,6 @@ function KingKong(attackOrder) {
 	
     this.name='king'
 	this._sound='aaaaaaaaaaaarrrrrrrrrgghhhh "boom boom boom boom"';
-    this._attacks={
-        'Stamp':[6,3], 
-        'Punch':[9,1], 
-        'Tackle':[4,2],
-        'DrumOnChest':[1,6]
-    }
 	
 }
 
@@ -95,6 +85,39 @@ KingKong.prototype = Object.create(Monster.prototype);
 function random (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+function calculateAttacks(a,d,attacks){
+    var kum_a=a;
+    var kum_d=d;
+    var results=[];
+    
+    for (var i in attacks){
+        
+        if (i<attacks.length-1){
+            delta_a=kum_a;
+            delta_d=kum_d;
+            
+            if (i<(attacks.length)/2){
+                delta_a/=2;
+                delta_d/=2;
+            }
+            ap=random(1,delta_a);
+            dp=random(1,delta_d);
+            kum_a-=ap;
+            kum_d-=dp;
+            
+            results[attacks[i]]=new Array(ap,dp);
+        }else
+            results[attacks[i]]=new Array(kum_a,kum_d);
+  
+    }
+    
+    return results;
+    
+}
+
+calculateAttacks(20,12,["Punch", "Tackle", "BattleCry", "RoundHouseKick",'enes']);
 
 //REFEREE
 function Referee() {
