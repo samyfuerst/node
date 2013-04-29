@@ -6,7 +6,7 @@ function Godzilla(attackOrder) {
     this.name='god';
 	this._sound='rooooooaaaaaaarrr';
  
-}
+};
 
 Godzilla.prototype = Object.create(monsters.Monster.prototype);
 

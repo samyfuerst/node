@@ -6,7 +6,7 @@ function KingKong(attackOrder) {
     this.name='king';
 	this._sound='aaaaaaaaaaaarrrrrrrrrgghhhh "boom boom boom boom"';
 	
-}
+};
 
 KingKong.prototype = Object.create(monsters.Monster.prototype);
 

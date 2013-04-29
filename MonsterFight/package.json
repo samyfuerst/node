@@ -4,7 +4,12 @@
     "description": "Modul for monster fights",
     "main": "./lib/monsters.js",
     "scripts": {},
-    "dependencies" : {"monsters":"*"},
+    "dependencies" : {
+		
+	"ansicolors":"*"
+
+    },
+
     "devDependencies" : {},
     "repository": "",
     "author": "samyfuerst",
