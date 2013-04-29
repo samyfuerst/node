@@ -1,17 +1,3 @@
-
-    
-
-
-
-
-
-
-//HELPER
-function random (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
 function calculateAttacks(a,d,attacks){
     var kum_a=a;
     var kum_d=d;
@@ -27,8 +13,8 @@ function calculateAttacks(a,d,attacks){
                 delta_a/=2;
                 delta_d/=2;
             }
-            ap=random(1,delta_a);
-            dp=random(1,delta_d);
+            ap=Math.floor(Math.random() * (delta_a - 1 + 1)) + 1;
+            dp=Math.floor(Math.random() * (delta_d - 1 + 1)) + 1;
             kum_a-=ap;
             kum_d-=dp;
             
@@ -42,5 +28,4 @@ function calculateAttacks(a,d,attacks){
     
 }
 
-
-
+calculateAttacks(20,12,["Punch", "Tackle", "BattleCry", "RoundHouseKick",'enes']);

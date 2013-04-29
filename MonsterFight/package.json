@@ -1,0 +1,12 @@
+{
+    "name": "MonsterFight",
+    "version": "0.0.1",
+    "description": "Modul for monster fights",
+    "main": "./lib/monsters.js",
+    "scripts": {},
+    "dependencies" : {"monsters":"*"},
+    "devDependencies" : {},
+    "repository": "",
+    "author": "samyfuerst",
+    "license": "MIT"
+}
