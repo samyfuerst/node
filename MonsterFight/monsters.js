@@ -45,7 +45,7 @@ for (m in monsters){
     monsters[m].addListener('hit',onHit);
     monsters[m].addListener('defend',onDefend);
     monsters[m].addListener('die',onDie);
-    monsters[m].addListener('growl',onGrowl)
+    monsters[m].addListener('growl',onGrowl);
 };
     
 
