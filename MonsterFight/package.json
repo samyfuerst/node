@@ -2,14 +2,11 @@
     "name": "MonsterFight",
     "version": "0.0.1",
     "description": "Modul for monster fights",
-    "main": "./lib/monsters.js",
+    "main": "./lib/Index.js",
     "scripts": {},
     "dependencies" : {
-		
-	"ansicolors":"*"
-
+	   "ansicolors":"*"
     },
-
     "devDependencies" : {},
     "repository": "",
     "author": "samyfuerst",

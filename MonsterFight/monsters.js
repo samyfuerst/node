@@ -2,7 +2,8 @@
 var Godzilla=require('./lib/Godzilla');
 var KingKong=require('./lib/KingKong');
 
-var Ref=require('./node_modules/monsters/lib/');
+
+var Ref=require('monsters');
 
 var colors=require('ansicolors');
 

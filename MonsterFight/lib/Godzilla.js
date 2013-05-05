@@ -1,4 +1,4 @@
-var monsters=require('../node_modules/monsters/lib');
+var monsters=require('monsters');
 
 function Godzilla(attackOrder) {
     monsters.Monster.apply(this, arguments);
