@@ -4,9 +4,7 @@ var socketio = require('socket.io');
 var fs=require('fs');
 var http = require('http');
 
-
 var fights=[];
-
 
 var app = express();
 
@@ -16,7 +14,16 @@ app.get('/', function(req, res){
     res.writeHead(200, {
         'Content-Type': 'text/html'
     });
-    res.end(fs.readFileSync(__dirname + '/index.html'));    
+    
+    var path = "./index.html";
+    
+    fs.readFile(path, 'utf8', function (err, data) {
+            if (err) 
+                throw err;
+        
+            res.end(data);
+    });
+        
 });
 
 
@@ -46,7 +53,6 @@ server.listen(3000);
 socketio.listen(server,{ log: false }).on('connection', function (socket) {
     
     var fight=new Fight();
-    var monsters=fight.monsters;
     
     fight.referee.addListener('moderation',function(text){
          socket.emit('fight', '<h2>'+text+'</h2>');
@@ -84,12 +90,12 @@ socketio.listen(server,{ log: false }).on('connection', function (socket) {
     };
     
     
-    for (m in monsters){
-        monsters[m].addListener('attack',onAttack);
-        monsters[m].addListener('hit',onHit);
-        monsters[m].addListener('defend',onDefend);
-        monsters[m].addListener('die',onDie);
-        monsters[m].addListener('growl',onGrowl);
+    for (m in fight.monsters){
+        fight.monsters[m].addListener('attack',onAttack);
+        fight.monsters[m].addListener('hit',onHit);
+        fight.monsters[m].addListener('defend',onDefend);
+        fight.monsters[m].addListener('die',onDie);
+        fight.monsters[m].addListener('growl',onGrowl);
     };
     
     
