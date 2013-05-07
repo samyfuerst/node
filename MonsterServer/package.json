@@ -1,0 +1,15 @@
+{
+    "name": "MonsterServer",
+    "version": "0.0.1",
+    "description": "Modul for monster fights",
+    "main": "",
+    "scripts": {},
+    "dependencies": {
+        "express": "*",
+        "socket.io":"*",
+    }
+    "devDependencies" : {},
+    "repository": "",
+    "author": "samyfuerst",
+    "license": "MIT"
+}
