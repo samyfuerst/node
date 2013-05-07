@@ -1,3 +1,4 @@
+MonsterServer/
 node_modules/.bin/
 node_modules/express/
 node_modules/socket.io/
