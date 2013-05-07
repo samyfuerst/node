@@ -1,4 +1,4 @@
-MonsterServer/node_modules/.bin/
-MonsterServer/node_modules/express/
-MonsterServer/node_modules/socket.io/
-MonsterServer/node_modules/MonsterFight/node_modules/ansicolors/
+node_modules/.bin/
+node_modules/express/
+node_modules/socket.io/
+node_modules/MonsterFight/node_modules/ansicolors/
